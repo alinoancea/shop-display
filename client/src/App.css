@@ -1,0 +1,209 @@
+/* Shop display – clean, inviting retail aesthetic */
+h1, h2, h3, .section-title, .product-header {
+  font-family: 'Baloo 2', sans-serif;
+}
+
+/* Main layout */
+.shop-container {
+  min-height: 100vh;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(135deg, #f5f3ef 0%, #ebe8e3 100%);
+}
+
+/* Section panels */
+.section-panel {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  height: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Delimiter: only between product areas */
+.product-area {
+  overflow: visible;
+}
+@media (min-width: 992px) {
+  .gama-delimiter {
+    position: absolute;
+    right: -1.5px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: rgba(45, 138, 94, 0.5);
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+.section-header {
+  background: linear-gradient(135deg, var(--shop-accent) 0%, var(--shop-accent-light) 100%);
+  color: white !important;
+  padding: 1.25rem 1.5rem;
+  min-height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: normal;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.section-header .section-title,
+.section-header h2 {
+  font-size: clamp(3rem, 9vw, 7rem) !important;
+  font-weight: 700 !important;
+  margin: 0;
+  line-height: 1;
+}
+
+/* Product grid */
+.product-grid {
+  padding: 0.25rem;
+  background: transparent;
+  border-radius: 0;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+}
+
+/* Product cards */
+.product-card {
+  position: relative;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  border: 2px solid rgba(45, 138, 94, 0.4);
+  box-shadow: none;
+}
+
+.product-card:hover {
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.product-card-corner {
+  position: absolute;
+  bottom: 0.35rem;
+  right: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  z-index: 1;
+}
+
+.product-card-price-per {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--shop-price);
+  background: transparent;
+  padding: 0.15rem 0.35rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.product-card-flag {
+  display: flex;
+  line-height: 0;
+}
+
+.product-card-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  text-align: center;
+  width: max-content;
+  max-width: calc(100% - 16px);
+}
+
+.product-card-content h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.product-card-content p {
+  margin: 0;
+  padding: 0;
+  margin-top: -0.25rem;
+}
+
+.product-header {
+  font-size: 1.5rem;
+  color: var(--shop-text);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.product-price-um {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--shop-price);
+  line-height: 1.2;
+  margin: 0;
+  font-family: 'Baloo 2', sans-serif;
+}
+
+/* Loading & error states */
+.loading-state, .error-state {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--shop-bg);
+}
+
+.error-state .alert {
+  border-radius: 12px;
+  box-shadow: var(--shop-shadow);
+}
+
+/* Alternate accent for the right-hand block */
+.gama-section--alt .section-header {
+  background: linear-gradient(135deg, #1a7f8c 0%, #2a9da8 100%);
+}
+.gama-section--alt .gama-delimiter {
+  background: rgba(26, 127, 140, 0.5);
+}
+.gama-section--alt .product-card {
+  border-color: rgba(26, 127, 140, 0.5);
+}
+.gama-section--alt .product-card:hover {
+  box-shadow: none;
+}
+.gama-section--alt .product-price-um,
+.gama-section--alt .product-card-price-per {
+  color: #166d7a;
+}
+
+.config-error {
+  animation: config-error-in 0.6s ease-out;
+}
+.config-error-icon {
+  font-size: 4rem;
+  color: var(--bs-danger);
+  animation: config-error-pulse 1.5s ease-in-out infinite;
+}
+@keyframes config-error-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes config-error-pulse {
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+.id-form input {
+  max-width: 10rem;
+}

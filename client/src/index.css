@@ -1,0 +1,30 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import './fonts.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --shop-bg: #f5f3ef;
+  --shop-panel: #ffffff;
+  --shop-accent: #2d8a5e;
+  --shop-accent-light: #3da876;
+  --shop-text: #2c2c2c;
+  --shop-text-muted: #5a5a5a;
+  --shop-price: #1a6b4a;
+  --shop-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --shop-shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--shop-bg);
+  color: var(--shop-text);
+  overflow-x: hidden;
+}

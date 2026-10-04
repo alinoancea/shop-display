@@ -147,3 +147,10 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Custom
+client/dist/
+server/products.db
+.env
+.env.*
+*.log
