@@ -1,11 +1,10 @@
 #!/bin/sh
-# Raspberry Pi OS Bookworm (labwc): Docker + aplicatia + Chromium kiosk la boot.
+# Raspberry Pi OS Bookworm (labwc): Docker + aplicatia + Firefox ESR kiosk la boot.
 # Rulare din radacina repo-ului, ca utilizatorul normal (nu root): sh scripts/kiosk-setup.sh http://192.168.1.10:5000
 # Argument: SCREEN_SERVER_URL (serverul Flask). Idempotent, poate fi rulat de mai multe ori.
 set -e
 [ -n "$1" ] || { echo "Folosire: $0 <SCREEN_SERVER_URL>"; exit 1; }
 URL="http://127.0.0.1"   # docker compose: 127.0.0.1:80 -> 3001
-BROWSER=$(command -v chromium-browser || command -v chromium) || { echo "Chromium lipseste"; exit 1; }
 
 # Docker (restart: unless-stopped + serviciul docker activ = aplicatia porneste la boot)
 command -v docker >/dev/null || curl -fsSL https://get.docker.com | sudo sh
@@ -21,9 +20,18 @@ sudo docker compose -f docker-compose.prod.yml up -d
 sudo raspi-config nonint do_boot_behaviour B4
 sudo raspi-config nonint do_blanking 1
 
-# Chromium kiosk + cursor ascuns (wtype apasa Alt+Super+H, legat la HideCursor; labwc >= 0.8.4)
-sudo apt-get install -y wtype
-mkdir -p ~/.config/labwc
+# Firefox ESR kiosk + cursor ascuns (wtype apasa Alt+Super+H, legat la HideCursor; labwc >= 0.8.4)
+sudo apt-get install -y firefox-esr wtype
+# profil dedicat (aici ramane screenId din localStorage); fara pagini de bun venit / restaurare sesiune
+mkdir -p ~/.kiosk-profile ~/.config/labwc
+cat > ~/.kiosk-profile/user.js <<EOF
+user_pref("browser.shell.checkDefaultBrowser", false);
+user_pref("browser.sessionstore.resume_from_crash", false);
+user_pref("browser.startup.homepage_override.mstone", "ignore");
+user_pref("startup.homepage_welcome_url", "");
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+user_pref("toolkit.telemetry.reportingpolicy.firstRun", false);
+EOF
 cat > ~/.config/labwc/rc.xml <<EOF
 <?xml version="1.0"?>
 <labwc_config>
@@ -39,8 +47,7 @@ EOF
 cat > ~/.config/labwc/autostart <<EOF
 wtype -M alt -M logo -k h -m logo -m alt
 until curl -s -o /dev/null $URL; do sleep 2; done
-$BROWSER --kiosk --noerrdialogs --disable-infobars --no-first-run \\
-  --disable-session-crashed-bubble --password-store=basic $URL &
+MOZ_ENABLE_WAYLAND=1 firefox-esr --kiosk --no-remote --profile \$HOME/.kiosk-profile $URL &
 EOF
 
 echo "Gata. Repornesti: sudo reboot"
