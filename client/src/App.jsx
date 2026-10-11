@@ -215,6 +215,7 @@ function App() {
   const productHeight = setting(screen.product_height, 20, 1000);
   const rowHeight = productHeight ?? DEFAULT_ROW_HEIGHT;
   const bannerText = typeof screen.text === 'string' ? screen.text.trim() : '';
+  const bannerSize = setting(screen.text_size, 8, 300);
 
   return (
     <div className="shop-container d-flex flex-column">
@@ -251,7 +252,11 @@ function App() {
           );
         })}
       </div>
-      {bannerText && <div className="screen-banner">{bannerText}</div>}
+      {bannerText && (
+        <div className="screen-banner" style={bannerSize ? { fontSize: `${bannerSize}px` } : undefined}>
+          {bannerText}
+        </div>
+      )}
     </div>
   );
 }

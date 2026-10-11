@@ -15,7 +15,7 @@ h1, h2, h3, .section-title, .product-header {
 /* Screen message: band under the product blocks, wraps up to 3 lines then ellipsis */
 .screen-banner {
   flex: 0 0 auto;
-  padding: 0.5rem 1.5rem;
+  padding: 0.4em 1.5rem; /* em: spacing grows with text_size */
   background: #c0392b;
   color: #fff;
   font-family: 'Baloo 2', sans-serif;
