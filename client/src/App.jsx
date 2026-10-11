@@ -6,6 +6,12 @@ const STORAGE_KEY = 'screenId';
 const DEFAULT_REFRESH_MS = 30000;
 const RETRY_MS = 10000;
 const BLOCKS_PER_SCREEN = 2;
+const DEFAULT_ROW_HEIGHT = 72;
+
+// per-screen setting from the server: a number inside [min, max], otherwise null (= current default behaviour)
+function setting(value, min, max) {
+  return Number.isFinite(value) && value >= min && value <= max ? Math.round(value) : null;
+}
 
 function loadStoredId() {
   try {
@@ -206,6 +212,9 @@ function App() {
 
   const blocks = screen.blocks.slice(0, BLOCKS_PER_SCREEN);
   const maxRows = Math.max(...blocks.map((b) => Math.ceil(b.items.length / b.width)), 1);
+  const productHeight = setting(screen.product_height, 20, 1000);
+  const rowHeight = productHeight ?? DEFAULT_ROW_HEIGHT;
+  const bannerText = typeof screen.text === 'string' ? screen.text.trim() : '';
 
   return (
     <div className="shop-container d-flex flex-column">
@@ -228,7 +237,7 @@ function App() {
                     style={{
                       display: 'grid',
                       gridTemplateColumns: `repeat(${block.width}, 1fr)`,
-                      gridTemplateRows: `repeat(${maxRows}, 72px)`,
+                      gridTemplateRows: `repeat(${maxRows}, ${rowHeight}px)`,
                       gap: '0.35rem',
                     }}
                   >
@@ -242,6 +251,7 @@ function App() {
           );
         })}
       </div>
+      {bannerText && <div className="screen-banner">{bannerText}</div>}
     </div>
   );
 }

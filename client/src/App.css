@@ -12,6 +12,24 @@ h1, h2, h3, .section-title, .product-header {
   background: linear-gradient(135deg, #f5f3ef 0%, #ebe8e3 100%);
 }
 
+/* Screen message: band under the product blocks, wraps up to 3 lines then ellipsis */
+.screen-banner {
+  flex: 0 0 auto;
+  padding: 0.5rem 1.5rem;
+  background: #c0392b;
+  color: #fff;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
 /* Section panels */
 .section-panel {
   background: transparent;
