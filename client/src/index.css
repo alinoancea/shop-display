@@ -26,5 +26,9 @@ html, body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   background: var(--shop-bg);
   color: var(--shop-text);
-  overflow-x: hidden;
+  overflow: hidden; /* kiosk: no page scrollbar, what does not fit is clipped */
+}
+
+.min-h-0 {
+  min-height: 0;
 }

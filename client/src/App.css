@@ -45,6 +45,8 @@ h1, h2, h3, .section-title, .product-header {
 /* Delimiter: only between product areas */
 .product-area {
   overflow: visible;
+  display: flex;
+  flex-direction: column;
 }
 @media (min-width: 992px) {
   .gama-delimiter {
@@ -86,7 +88,7 @@ h1, h2, h3, .section-title, .product-header {
   padding: 0.25rem;
   background: transparent;
   border-radius: 0;
-  overflow-y: auto;
+  overflow: hidden;
   min-height: 0;
   flex: 1;
 }
